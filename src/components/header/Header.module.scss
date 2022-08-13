@@ -1,0 +1,13 @@
+.header {
+  display: flex;
+  padding: 1rem;
+  background-color: #6c524c;
+  color: white;
+  gap: 1rem;
+  align-items: center;
+
+  &__img {
+    width: 2rem;
+    height: 2rem;
+  }
+}
