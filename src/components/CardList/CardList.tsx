@@ -12,28 +12,39 @@ const CardList = () => {
 
   const [isCreated, setIsCreated] = useState(false)
   const [cardList, setCardList] = useState<CardItem[]>([])
+
   const [value, setValue] = useState('')
 
   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
   }
 
+  console.log('cardList', cardList)
+
   const addCardBlock = () => {
     if (value.length !== 0) {
       cardList.length > 0
-        ? setCardList([...cardList, { id: v4(), title: value }])
-        : setCardList([{ id: v4(), title: value }])
+        ? setCardList([...cardList, { id: v4(), title: value, tasks: [] }])
+        : setCardList([{ id: v4(), title: value, tasks: [] }])
       setValue('')
       setIsCreated(false)
     }
   }
 
-  console.log(cardList)
+  const addTaskItem = (id: CardItem['id'], value: string) => {
+    setCardList(
+      cardList.map((card) => {
+        return card.id === id
+          ? { ...card, tasks: [...card.tasks, { id: v4(), title: value }] }
+          : card
+      })
+    )
+  }
 
   return (
     <div className={styles.cardList}>
       {cardList.map((cardItem) => (
-        <CardBlock key={cardItem.id} {...cardItem} />
+        <CardBlock key={cardItem.id} {...cardItem} addTaskItem={addTaskItem} />
       ))}
       <div
         className={styles.cardList__create_btn}

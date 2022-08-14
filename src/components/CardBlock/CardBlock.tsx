@@ -11,23 +11,28 @@ import ButtonClear from '../UI/ButtonClear'
 import { useRef, useState } from 'react'
 import Input from '../UI/Input'
 import classNames from 'classnames'
+import { v4 } from 'uuid'
 
-const CardBlock: React.FC<CardItem> = ({ id, title, tasks }) => {
-  const [tasksList, setTaskslist] = useState(tasks)
+type CardBlockProps = CardItem & {
+  addTaskItem: (id: CardItem['id'], value: string) => void
+}
+
+const CardBlock: React.FC<CardBlockProps> = ({
+  id,
+  title,
+  tasks,
+  addTaskItem,
+}) => {
   const [value, setValue] = useState('')
   const [isCreated, setIsCreated] = useState(false)
 
   const inputRef = useRef<HTMLInputElement>(null)
 
-  console.log(tasksList)
-
   const addTask = () => {
     if (value.length !== 0) {
-      //  cardList.length > 0
-      //    ? setCardList([...cardList, { id: v4(), title: value }])
-      //    : setCardList([{ id: v4(), title: value }])
-      //  setValue('')
-      //  setIsCreated(false)
+      addTaskItem(id, value)
+      setValue('')
+      setIsCreated(false)
     }
   }
 
@@ -107,8 +112,13 @@ const CardBlock: React.FC<CardItem> = ({ id, title, tasks }) => {
             />
 
             <div className={styles.cardBlock__buttons}>
-              <ButtonAdd onClick={addTask}>Add card</ButtonAdd>
-              <ButtonClear />
+              <ButtonAdd
+                onClick={() => {
+                  addTask()
+                }}>
+                Add card
+              </ButtonAdd>
+              <ButtonClear onClick={() => setIsCreated(false)} />
             </div>
           </div>
         ) : (

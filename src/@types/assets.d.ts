@@ -11,7 +11,7 @@ declare module '*.svg' {
 type CardItem = {
   id: string
   title: string
-  tasks?: Card[]
+  tasks: Card[]
 }
 
 type Card = {
