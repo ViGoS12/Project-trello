@@ -1,0 +1,9 @@
+.buttonAdd {
+  background-color: gray;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  letter-spacing: 0.5px;
+  &:hover {
+    opacity: 0.8;
+  }
+}
