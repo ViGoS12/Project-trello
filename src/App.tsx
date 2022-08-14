@@ -1,6 +1,6 @@
 import './scss/app.scss'
+
 import Header from './components/header/'
-import Main from './components/main/'
 import CardList from './components/CardList/'
 
 function App() {
@@ -9,7 +9,6 @@ function App() {
       <Header />
       <div className='app__container'>
         <CardList />
-        {/* <Main /> */}
       </div>
     </div>
   )

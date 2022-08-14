@@ -34,9 +34,9 @@ const Main: React.FC = () => {
 
   return (
     <div className={styles.main}>
-      {data.map((dataCard) => (
+      {/* {data.map((dataCard) => (
         <CardBlock key={dataCard.id} DefaultData={data} setData={onClick} />
-      ))}
+      ))} */}
     </div>
   )
 }

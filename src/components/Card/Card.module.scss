@@ -3,4 +3,8 @@
   padding: 1rem;
   border-radius: 1rem;
   word-wrap: break-word;
+
+  -webkit-box-shadow: -5px -5px 23px -5px rgba(18, 23, 24, 0.6) inset;
+  -moz-box-shadow: -5px -5px 23px -5px rgba(18, 23, 24, 0.6) inset;
+  box-shadow: -5px -5px 23px -5px rgba(18, 23, 24, 0.6) inset;
 }

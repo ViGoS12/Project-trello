@@ -3,23 +3,18 @@
 .cardList {
   display: flex;
   gap: 1rem;
-  align-items: center;
 
   &__create_btn {
     padding: 1rem;
     border-radius: 1rem;
     width: 272px;
+    cursor: pointer;
 
     background-color: rgba(32, 35, 41, 0.7);
     &:hover {
       background: $cardBlock;
     }
-  }
-
-  &__input {
-    color: black;
-    padding: 0.5rem;
-    width: 100%;
+    height: fit-content;
   }
 
   &__wrapper {
@@ -32,28 +27,5 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-  }
-
-  &__btn {
-    background: inherit;
-
-    &_add {
-      background-color: gray;
-      padding: 0.5rem;
-      border-radius: 0.5rem;
-      &:hover {
-        opacity: 0.8;
-      }
-    }
-
-    &_clear {
-      width: 1.5rem;
-      height: 1.5rem;
-      cursor: pointer;
-      opacity: 0.5;
-      &:hover {
-        opacity: 1;
-      }
-    }
   }
 }
