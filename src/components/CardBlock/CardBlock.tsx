@@ -42,70 +42,65 @@ const CardBlock: React.FC<CardBlockProps> = ({
   }
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <div className={styles.cardBlock}>
-        <Droppable key={id} droppableId={id}>
-          {(provided) => (
-            <div
-              className={styles.cardBlock__item}
-              ref={provided.innerRef}
-              {...provided.droppableProps}>
-              <div className={styles.cardBlock__title}>{title}</div>
-              <div className={styles.cardBlock__content}>
-                {tasks &&
-                  tasks.map((task, index) => (
-                    <Draggable
-                      draggableId={task.id}
-                      index={index}
-                      key={task.id}>
-                      {(provided, snapshot) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          style={{
-                            ...provided.draggableProps.style,
-                            opacity: snapshot.isDragging ? '0.5' : '1',
-                          }}>
-                          <Card>{task.title}</Card>
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-              </div>
+    <div className={styles.cardBlock}>
+      <Droppable key={id} droppableId={id}>
+        {(provided) => (
+          <div
+            className={styles.cardBlock__item}
+            ref={provided.innerRef}
+            {...provided.droppableProps}>
+            <div className={styles.cardBlock__title}>{title}</div>
+            <div className={styles.cardBlock__content}>
+              {tasks &&
+                tasks.map((task, index) => (
+                  <Draggable draggableId={task.id} index={index} key={task.id}>
+                    {(provided, snapshot) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        style={{
+                          ...provided.draggableProps.style,
+                          opacity: snapshot.isDragging ? '0.5' : '1',
+                        }}>
+                        <Card>{task.title}</Card>
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
             </div>
-          )}
-        </Droppable>
-        {isCreated ? (
-          <div className={styles.cardBlock__footer}>
-            <Input
-              ref={inputRef}
-              type='text'
-              onChange={onChangeInput}
-              value={value}
-            />
-
-            <div className={styles.cardBlock__buttons}>
-              <ButtonAdd
-                onClick={() => {
-                  addTask()
-                }}>
-                Add card
-              </ButtonAdd>
-              <ButtonClear onClick={() => setIsCreated(false)} />
-            </div>
-          </div>
-        ) : (
-          <div className={classNames(styles.cardBlock__footer)}>
-            <button
-              className={styles.cardBlock__create_btn}
-              onClick={() => setIsCreated(true)}>
-              Add card
-            </button>
           </div>
         )}
-      </div>
-    </DragDropContext>
+      </Droppable>
+      {isCreated ? (
+        <div className={styles.cardBlock__footer}>
+          <Input
+            ref={inputRef}
+            type='text'
+            onChange={onChangeInput}
+            value={value}
+          />
+
+          <div className={styles.cardBlock__buttons}>
+            <ButtonAdd
+              onClick={() => {
+                addTask()
+              }}>
+              Add card
+            </ButtonAdd>
+            <ButtonClear onClick={() => setIsCreated(false)} />
+          </div>
+        </div>
+      ) : (
+        <div className={classNames(styles.cardBlock__footer)}>
+          <button
+            className={styles.cardBlock__create_btn}
+            onClick={() => setIsCreated(true)}>
+            Add card
+          </button>
+        </div>
+      )}
+    </div>
   )
 }
 

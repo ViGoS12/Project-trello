@@ -4,7 +4,7 @@ import styles from './CardList.module.scss'
 
 import { v4 } from 'uuid'
 
-import { DropResult } from 'react-beautiful-dnd'
+import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 
 import CardBlock from './../CardBlock/index'
 import ButtonAdd from '../UI/ButtonAdd'
@@ -76,32 +76,56 @@ const CardList: React.FC = () => {
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result
 
-    if (!destination) {
-      return
+    // if (!destination) {
+    //   return
+    // }
+
+    if (source.droppableId !== destination?.droppableId) {
+      console.log('source.droppableId', source.droppableId)
+      console.log('destination?.droppableId', destination?.droppableId)
+      const sourceIndex = cardList.findIndex((e) => e.id === source.droppableId)
+      if (destination) {
+        const destinationIndex = cardList.findIndex(
+          (e) => e.id === destination.droppableId
+        )
+        const sourceCol = cardList[sourceIndex]
+        const destinationCol = cardList[destinationIndex]
+        const destinationTask = [...destinationCol.tasks]
+        const sourceTask = [...sourceCol.tasks]
+        const [removed] = sourceTask.splice(source.index, 1)
+
+        if (destination) {
+          destinationTask.splice(destination.index, 0, removed)
+        }
+        cardList[sourceIndex].tasks = sourceTask
+        cardList[destinationIndex].tasks = destinationTask
+        setCardList([...cardList])
+      }
+    } else {
+      const sourceIndex = cardList.findIndex((e) => e.id === source.droppableId)
+      const sourceCol = cardList[sourceIndex]
+      const sourceTask = [...sourceCol.tasks]
+
+      const [removed] = sourceTask.splice(source.index, 1)
+      sourceTask.splice(destination.index, 0, removed)
+      cardList[sourceIndex].tasks = sourceTask
+
+      setCardList([...cardList])
     }
-    const sourceIndex = cardList.findIndex((e) => e.id === source.droppableId)
-    const sourceCol = cardList[sourceIndex]
-    const sourceTask = [...sourceCol.tasks]
-
-    const [removed] = sourceTask.splice(source.index, 1)
-    sourceTask.splice(destination.index, 0, removed)
-    cardList[sourceIndex].tasks = sourceTask
-
-    setCardList([...cardList])
-
-    console.log(cardList)
   }
 
   return (
     <div className={styles.cardList}>
-      {cardList.map((cardItem) => (
-        <CardBlock
-          key={cardItem.id}
-          {...cardItem}
-          addTaskItem={addTaskItem}
-          onDragEnd={onDragEnd}
-        />
-      ))}
+      <DragDropContext onDragEnd={onDragEnd}>
+        {cardList.map((cardItem) => (
+          <CardBlock
+            key={cardItem.id}
+            {...cardItem}
+            addTaskItem={addTaskItem}
+            onDragEnd={onDragEnd}
+          />
+        ))}
+      </DragDropContext>
       <div
         className={styles.cardList__create_btn}
         onClick={() => {
