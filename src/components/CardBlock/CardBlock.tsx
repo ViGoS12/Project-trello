@@ -11,10 +11,10 @@ import ButtonClear from '../UI/ButtonClear'
 import { useRef, useState } from 'react'
 import Input from '../UI/Input'
 import classNames from 'classnames'
-import { v4 } from 'uuid'
 
 type CardBlockProps = CardItem & {
   addTaskItem: (id: CardItem['id'], value: string) => void
+  onDragEnd: (result: DropResult) => void
 }
 
 const CardBlock: React.FC<CardBlockProps> = ({
@@ -22,6 +22,7 @@ const CardBlock: React.FC<CardBlockProps> = ({
   title,
   tasks,
   addTaskItem,
+  onDragEnd,
 }) => {
   const [value, setValue] = useState('')
   const [isCreated, setIsCreated] = useState(false)
@@ -40,35 +41,8 @@ const CardBlock: React.FC<CardBlockProps> = ({
     setValue(event.target.value)
   }
 
-  const onDragEnd = (result: DropResult) => {
-    const { source, destination } = result
-    if (source.droppableId !== destination?.droppableId) {
-      // const sourceIndex = DefaultData.findIndex(
-      //   (e) => e.id === source.droppableId
-      // )
-      // if (destination) {
-      //   const destinationIndex = DefaultData.findIndex(
-      //     (e) => e.id === destination.droppableId
-      //   )
-      //   const sourceCol = DefaultData[sourceIndex]
-      //   const destinationCol = DefaultData[destinationIndex]
-      //   const destinationTask = [...destinationCol.tasks]
-      //   const sourceTask = [...sourceCol.tasks]
-      //   const [removed] = sourceTask.splice(source.index, 1)
-      //   if (destination) {
-      //     destinationTask.splice(destination.index, 0, removed)
-      //   }
-      //   DefaultData[sourceIndex].tasks = sourceTask
-      //   DefaultData[destinationIndex].tasks = destinationTask
-      //   setData(DefaultData)
-      // }
-    } else {
-      const sourceIndex = source.droppableId
-      console.log(sourceIndex)
-    }
-  }
   return (
-    <DragDropContext onDragEnd={(res) => onDragEnd(res)}>
+    <DragDropContext onDragEnd={onDragEnd}>
       <div className={styles.cardBlock}>
         <Droppable key={id} droppableId={id}>
           {(provided) => (

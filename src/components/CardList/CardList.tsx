@@ -1,25 +1,58 @@
-import styles from './CardList.module.scss'
-import CardBlock from './../CardBlock/index'
-import { v4 } from 'uuid'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
+import styles from './CardList.module.scss'
+
+import { v4 } from 'uuid'
+
+import { DropResult } from 'react-beautiful-dnd'
+
+import CardBlock from './../CardBlock/index'
 import ButtonAdd from '../UI/ButtonAdd'
 import ButtonClear from '../UI/ButtonClear'
 import Input from '../UI/Input'
 
-const CardList = () => {
+const def = [
+  {
+    id: v4(),
+    title: 'Second Title',
+    tasks: [
+      {
+        id: v4(),
+        title: '123131223123',
+      },
+      {
+        id: v4(),
+        title: '234',
+      },
+    ],
+  },
+  {
+    id: v4(),
+    title: 'Third Title',
+    tasks: [
+      {
+        id: v4(),
+        title: '123',
+      },
+      {
+        id: v4(),
+        title: '234',
+      },
+    ],
+  },
+]
+
+const CardList: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const [isCreated, setIsCreated] = useState(false)
-  const [cardList, setCardList] = useState<CardItem[]>([])
+  const [cardList, setCardList] = useState<CardItem[]>(def)
 
   const [value, setValue] = useState('')
 
   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
   }
-
-  console.log('cardList', cardList)
 
   const addCardBlock = () => {
     if (value.length !== 0) {
@@ -40,11 +73,34 @@ const CardList = () => {
       })
     )
   }
+  const onDragEnd = (result: DropResult) => {
+    const { source, destination } = result
+
+    if (!destination) {
+      return
+    }
+    const sourceIndex = cardList.findIndex((e) => e.id === source.droppableId)
+    const sourceCol = cardList[sourceIndex]
+    const sourceTask = [...sourceCol.tasks]
+
+    const [removed] = sourceTask.splice(source.index, 1)
+    sourceTask.splice(destination.index, 0, removed)
+    cardList[sourceIndex].tasks = sourceTask
+
+    setCardList([...cardList])
+
+    console.log(cardList)
+  }
 
   return (
     <div className={styles.cardList}>
       {cardList.map((cardItem) => (
-        <CardBlock key={cardItem.id} {...cardItem} addTaskItem={addTaskItem} />
+        <CardBlock
+          key={cardItem.id}
+          {...cardItem}
+          addTaskItem={addTaskItem}
+          onDragEnd={onDragEnd}
+        />
       ))}
       <div
         className={styles.cardList__create_btn}
