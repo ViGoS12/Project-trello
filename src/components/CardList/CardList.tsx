@@ -76,13 +76,11 @@ const CardList: React.FC = () => {
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result
 
-    // if (!destination) {
-    //   return
-    // }
+    if (!destination) {
+      return
+    }
 
-    if (source.droppableId !== destination?.droppableId) {
-      console.log('source.droppableId', source.droppableId)
-      console.log('destination?.droppableId', destination?.droppableId)
+    if (source.droppableId !== destination.droppableId) {
       const sourceIndex = cardList.findIndex((e) => e.id === source.droppableId)
       if (destination) {
         const destinationIndex = cardList.findIndex(
