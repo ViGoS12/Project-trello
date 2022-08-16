@@ -11,42 +11,11 @@ import ButtonAdd from '../UI/ButtonAdd'
 import ButtonClear from '../UI/ButtonClear'
 import Input from '../UI/Input'
 
-const def = [
-  {
-    id: v4(),
-    title: 'Second Title',
-    tasks: [
-      {
-        id: v4(),
-        title: '123131223123',
-      },
-      {
-        id: v4(),
-        title: '234',
-      },
-    ],
-  },
-  {
-    id: v4(),
-    title: 'Third Title',
-    tasks: [
-      {
-        id: v4(),
-        title: '123',
-      },
-      {
-        id: v4(),
-        title: '234',
-      },
-    ],
-  },
-]
-
 const CardList: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const [isCreated, setIsCreated] = useState(false)
-  const [cardList, setCardList] = useState<CardItem[]>(def)
+  const [cardList, setCardList] = useState<CardItem[]>([])
 
   const [value, setValue] = useState('')
 
@@ -120,7 +89,6 @@ const CardList: React.FC = () => {
             key={cardItem.id}
             {...cardItem}
             addTaskItem={addTaskItem}
-            onDragEnd={onDragEnd}
           />
         ))}
       </DragDropContext>

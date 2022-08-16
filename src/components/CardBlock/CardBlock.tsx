@@ -14,7 +14,6 @@ import classNames from 'classnames'
 
 type CardBlockProps = CardItem & {
   addTaskItem: (id: CardItem['id'], value: string) => void
-  onDragEnd: (result: DropResult) => void
 }
 
 const CardBlock: React.FC<CardBlockProps> = ({
@@ -22,7 +21,6 @@ const CardBlock: React.FC<CardBlockProps> = ({
   title,
   tasks,
   addTaskItem,
-  onDragEnd,
 }) => {
   const [value, setValue] = useState('')
   const [isCreated, setIsCreated] = useState(false)
