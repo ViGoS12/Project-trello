@@ -10,9 +10,11 @@ import CardBlock from './../CardBlock/index'
 import ButtonAdd from '../UI/ButtonAdd'
 import ButtonClear from '../UI/ButtonClear'
 import Input from '../UI/Input'
+import useOnClickOutside from './../hooks/useOnClickOutside'
 
 const CardList: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null)
+  const createRef = useRef<HTMLInputElement>(null)
 
   const [isCreated, setIsCreated] = useState(false)
   const [cardList, setCardList] = useState<CardItem[]>([])
@@ -47,6 +49,8 @@ const CardList: React.FC = () => {
       addCardBlock()
     }
   }
+
+  useOnClickOutside(createRef, () => setIsCreated(false))
 
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result
@@ -100,6 +104,7 @@ const CardList: React.FC = () => {
       </DragDropContext>
       <div
         className={styles.cardList__create_btn}
+        ref={createRef}
         onClick={() => {
           setIsCreated(true)
         }}>
@@ -111,6 +116,7 @@ const CardList: React.FC = () => {
               onChange={onChangeInput}
               value={value}
               onKeyDown={onKeyDown}
+              onClick={(e) => e.stopPropagation()}
             />
             <div className={styles.cardList__buttons}>
               <ButtonAdd

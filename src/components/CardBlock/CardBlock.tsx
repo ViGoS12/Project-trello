@@ -6,6 +6,7 @@ import ButtonClear from '../UI/ButtonClear'
 import { useRef, useState } from 'react'
 import Input from '../UI/Input'
 import classNames from 'classnames'
+import useOnClickOutside from './../hooks/useOnClickOutside'
 
 type CardBlockProps = CardItem & {
   addTaskItem: (id: CardItem['id'], value: string) => void
@@ -21,6 +22,7 @@ const CardBlock: React.FC<CardBlockProps> = ({
   const [isCreated, setIsCreated] = useState(false)
 
   const inputRef = useRef<HTMLInputElement>(null)
+  const footerRef = useRef<HTMLInputElement>(null)
 
   const addTask = () => {
     if (value.length !== 0) {
@@ -38,6 +40,8 @@ const CardBlock: React.FC<CardBlockProps> = ({
   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
   }
+
+  useOnClickOutside(footerRef, () => setIsCreated(false))
 
   return (
     <div className={styles.cardBlock}>
@@ -72,7 +76,7 @@ const CardBlock: React.FC<CardBlockProps> = ({
         )}
       </Droppable>
       {isCreated ? (
-        <div className={styles.cardBlock__footer}>
+        <div className={styles.cardBlock__footer} ref={footerRef}>
           <Input
             ref={inputRef}
             type='text'
