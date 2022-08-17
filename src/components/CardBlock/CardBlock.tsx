@@ -1,10 +1,5 @@
 import styles from './CardBlock.module.scss'
-import {
-  DragDropContext,
-  Draggable,
-  Droppable,
-  DropResult,
-} from 'react-beautiful-dnd'
+import { Draggable, Droppable } from 'react-beautiful-dnd'
 import Card from './../Card/'
 import ButtonAdd from './../UI/ButtonAdd/'
 import ButtonClear from '../UI/ButtonClear'
@@ -31,7 +26,12 @@ const CardBlock: React.FC<CardBlockProps> = ({
     if (value.length !== 0) {
       addTaskItem(id, value)
       setValue('')
-      setIsCreated(false)
+    }
+  }
+
+  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter') {
+      addTask()
     }
   }
 
@@ -67,6 +67,7 @@ const CardBlock: React.FC<CardBlockProps> = ({
                   </Draggable>
                 ))}
             </div>
+            {provided.placeholder}
           </div>
         )}
       </Droppable>
@@ -77,6 +78,7 @@ const CardBlock: React.FC<CardBlockProps> = ({
             type='text'
             onChange={onChangeInput}
             value={value}
+            onKeyDown={onKeyDown}
           />
 
           <div className={styles.cardBlock__buttons}>

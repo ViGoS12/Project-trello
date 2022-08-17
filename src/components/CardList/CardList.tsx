@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 import styles from './CardList.module.scss'
 
@@ -29,7 +29,6 @@ const CardList: React.FC = () => {
         ? setCardList([...cardList, { id: v4(), title: value, tasks: [] }])
         : setCardList([{ id: v4(), title: value, tasks: [] }])
       setValue('')
-      setIsCreated(false)
     }
   }
 
@@ -42,6 +41,13 @@ const CardList: React.FC = () => {
       })
     )
   }
+
+  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter') {
+      addCardBlock()
+    }
+  }
+
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result
 
@@ -104,6 +110,7 @@ const CardList: React.FC = () => {
               type='text'
               onChange={onChangeInput}
               value={value}
+              onKeyDown={onKeyDown}
             />
             <div className={styles.cardList__buttons}>
               <ButtonAdd
