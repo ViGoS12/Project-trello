@@ -1,7 +1,12 @@
 .header {
   display: flex;
   padding: 1rem;
-  background-color: #6c524c;
+
+  background-attachment: scroll;
+  background-color: #312f30;
+
+  width: auto;
+
   color: white;
   gap: 1rem;
   align-items: center;

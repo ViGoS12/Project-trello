@@ -3,18 +3,30 @@
 .cardList {
   display: flex;
   gap: 1rem;
+  overflow-x: auto;
+  height: 100%;
+
+  &::-webkit-scrollbar {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 1rem;
+    height: 0.5rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 1rem;
+  }
 
   &__create_btn {
     padding: 1rem;
     border-radius: 1rem;
-    width: 272px;
+    min-width: 272px;
+    height: fit-content;
     cursor: pointer;
 
     background-color: rgba(32, 35, 41, 0.7);
     &:hover {
       background: $cardBlock;
     }
-    height: fit-content;
   }
 
   &__wrapper {
