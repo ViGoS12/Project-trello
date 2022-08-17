@@ -1,8 +1,11 @@
+@import '../../../scss/variables.scss';
+
 .buttonAdd {
-  background-color: gray;
+  background-color: $button;
   padding: 0.5rem;
   border-radius: 0.5rem;
   letter-spacing: 0.5px;
+  box-shadow: 0 0 10px $button;
   &:hover {
     opacity: 0.8;
   }

@@ -1,5 +1,12 @@
+@import '../../../scss/variables.scss';
 .input {
-  color: black;
+  background-color: $input;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.5rem;
+  color: rgba(255, 255, 255, 0.7);
   padding: 0.5rem;
   width: 100%;
+  -webkit-box-shadow: -5px -5px 5px -5px rgba(26, 27, 30, 0.6) inset;
+  -moz-box-shadow: -5px -5px 5px -5px rgba(26, 27, 30, 0.6) inset;
+  box-shadow: -5px -5px 5px -5px rgba(26, 27, 30, 0.6) inset;
 }

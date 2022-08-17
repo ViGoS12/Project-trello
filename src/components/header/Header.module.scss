@@ -1,9 +1,12 @@
+@import '../../scss/variables.scss';
+
 .header {
   display: flex;
   padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 
   background-attachment: scroll;
-  background-color: #312f30;
+  background-color: $header;
 
   width: auto;
 
