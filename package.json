@@ -2,6 +2,7 @@
   "name": "project-trello",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://vigos12.github.io/Project-trello/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^11.2.7",
@@ -13,6 +14,7 @@
     "@types/react-dom": "^18.0.6",
     "@types/uuid": "^8.3.4",
     "classnames": "^2.3.1",
+    "gh-pages": "^4.0.0",
     "react": "^17.0.2",
     "react-beautiful-dnd": "^13.1.0",
     "react-dom": "^17.0.2",
@@ -25,7 +27,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build",
+    "predeploy": "npm run build"
   },
   "eslintConfig": {
     "extends": [
