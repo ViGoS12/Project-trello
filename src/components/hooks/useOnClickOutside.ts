@@ -1,6 +1,9 @@
-import { useEffect } from 'react'
+import { KeyboardEvent, useEffect } from 'react'
 
-function useOnClickOutside(ref: any, handler: any) {
+function useOnClickOutside(
+  ref: React.RefObject<HTMLInputElement>,
+  handler: (event: React.ChangeEvent<HTMLInputElement>) => void
+) {
   useEffect(() => {
     const listener = (event: any) => {
       if (!ref.current || ref.current.contains(event.target)) {
