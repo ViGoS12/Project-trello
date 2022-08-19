@@ -4,7 +4,6 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-
   vertical-align: top;
 
   &__item {
@@ -32,8 +31,6 @@
   }
 
   &__content {
-    display: flex;
-    flex-direction: column;
     height: 100%;
 
     flex: 1 1 auto;
@@ -43,7 +40,7 @@
     max-height: 100%;
 
     overflow-x: hidden;
-    overflow-y: visible;
+    overflow-y: auto;
 
     &::-webkit-scrollbar {
       background-color: rgba(0, 0, 0, 0.05);
@@ -81,6 +78,16 @@
     border-radius: 0.5rem;
     &:hover {
       background-color: rgba(61, 69, 84, 0.8);
+    }
+  }
+
+  &__delete_btn {
+    width: 1.3rem;
+    height: 1.3rem;
+    opacity: 0.5;
+    cursor: pointer;
+    &:hover {
+      opacity: 1;
     }
   }
 }

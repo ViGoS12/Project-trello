@@ -7,9 +7,11 @@ import { useRef, useState } from 'react'
 import Input from '../UI/Input'
 import classNames from 'classnames'
 import useOnClickOutside from './../hooks/useOnClickOutside'
+import ClearButton from '../../assets/svg/clearButton.svg'
 
 type CardBlockProps = CardItem & {
   addTaskItem: (id: CardItem['id'], value: string) => void
+  deleteTask: (id: CardItem['id']) => void
 }
 
 const CardBlock: React.FC<CardBlockProps> = ({
@@ -17,6 +19,7 @@ const CardBlock: React.FC<CardBlockProps> = ({
   title,
   tasks,
   addTaskItem,
+  deleteTask,
 }) => {
   const [value, setValue] = useState('')
   const [isCreated, setIsCreated] = useState(false)
@@ -29,6 +32,10 @@ const CardBlock: React.FC<CardBlockProps> = ({
       addTaskItem(id, value)
       setValue('')
     }
+  }
+
+  const deleteTaskOne = () => {
+    deleteTask(id)
   }
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -65,7 +72,15 @@ const CardBlock: React.FC<CardBlockProps> = ({
                           ...provided.draggableProps.style,
                           opacity: snapshot.isDragging ? '0.5' : '1',
                         }}>
-                        <Card>{task.title}</Card>
+                        <Card>
+                          {task.title}
+                          <img
+                            src={ClearButton}
+                            alt=''
+                            className={styles.cardBlock__delete_btn}
+                            onClick={deleteTaskOne}
+                          />
+                        </Card>
                       </div>
                     )}
                   </Draggable>

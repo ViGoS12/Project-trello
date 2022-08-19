@@ -44,6 +44,10 @@ const CardList: React.FC = () => {
     )
   }
 
+  const deleteTask = (id: CardItem['id']) => {
+    setCardList((card) => card.filter((tasks) => tasks.id !== id))
+  }
+
   const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {
       addCardBlock()
@@ -99,6 +103,7 @@ const CardList: React.FC = () => {
             key={cardItem.id}
             {...cardItem}
             addTaskItem={addTaskItem}
+            deleteTask={deleteTask}
           />
         ))}
       </DragDropContext>
