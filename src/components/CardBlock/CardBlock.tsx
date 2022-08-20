@@ -11,7 +11,7 @@ import ClearButton from '../../assets/svg/clearButton.svg'
 
 type CardBlockProps = CardItem & {
   addTaskItem: (id: CardItem['id'], value: string) => void
-  deleteTask: (id: CardItem['id']) => void
+  deleteTask: (cardId: CardItem['id'], taskId: CardItem['id']) => void
 }
 
 const CardBlock: React.FC<CardBlockProps> = ({
@@ -32,10 +32,6 @@ const CardBlock: React.FC<CardBlockProps> = ({
       addTaskItem(id, value)
       setValue('')
     }
-  }
-
-  const deleteTaskOne = () => {
-    deleteTask(id)
   }
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -78,7 +74,7 @@ const CardBlock: React.FC<CardBlockProps> = ({
                             src={ClearButton}
                             alt=''
                             className={styles.cardBlock__delete_btn}
-                            onClick={deleteTaskOne}
+                            onClick={() => deleteTask(id, task.id)}
                           />
                         </Card>
                       </div>

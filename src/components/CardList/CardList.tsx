@@ -44,8 +44,19 @@ const CardList: React.FC = () => {
     )
   }
 
-  const deleteTask = (id: CardItem['id']) => {
-    setCardList((card) => card.filter((tasks) => tasks.id !== id))
+  const deleteTask = (cardId: CardItem['id'], taskId: Card['id']) => {
+    if (cardList.find((card) => card.id === cardId)) {
+      setCardList(
+        cardList.map((card) => {
+          return card.id === cardId
+            ? {
+                ...card,
+                tasks: [...card.tasks.filter((task) => task.id !== taskId)],
+              }
+            : card
+        })
+      )
+    }
   }
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
